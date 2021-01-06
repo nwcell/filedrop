@@ -13,7 +13,10 @@ class ListenerLog(models.Model):
 
     def __str__(self):
         timestamp = self.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        return f'{self.webhook_name} ({self.webhook_id}) {timestamp} | {self.id}'
+        if self.webhook_name and self.webhook_id:
+            return f'{self.webhook_name} ({self.webhook_id}) {timestamp} | {self.id}'
+        else:
+            return f'{timestamp} | {self.id}'
 
     @property
     def payload(self):
