@@ -14,7 +14,7 @@ class ListenerLog(models.Model):
     def __str__(self):
         timestamp = self.created_at.strftime('%m/%d/%y %H:%M:%S')
         if self.webhook_name and self.webhook_id:
-            return f'{timestamp} - {self.webhook_name}
+            return f'{timestamp} - {self.webhook_name}'
         else:
             return f'{timestamp} - <Non Conforming>'
 
