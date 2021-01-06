@@ -1,4 +1,5 @@
 import uuid
+import json
 from django.db import models
 
 # Create your models here.
@@ -12,4 +13,19 @@ class ListenerLog(models.Model):
 
     def __str__(self):
         timestamp = self.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        return f'{timestamp} | {self.id}'
+        return f'{self.webhook_name} ({self.webhook_id}) {timestamp} | {self.id}'
+
+    @property
+    def json(self):
+        try:
+            data = json.loads(self.data)
+        except Exception:
+            data = {}
+
+    @property
+    def webhook_id(self):
+        return self.json.get('webhookId')
+
+    @property
+    def webhook_name(self):
+        return self.json.get('webhookName')
