@@ -12,11 +12,11 @@ class ListenerLog(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        timestamp = self.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        timestamp = self.created_at.strftime('%m/%d/%y %H:%M:%S')
         if self.webhook_name and self.webhook_id:
-            return f'{self.webhook_name} ({self.webhook_id}) {timestamp} | {self.id}'
+            return f'{timestamp} - {self.webhook_name}
         else:
-            return f'{timestamp} | {self.id}'
+            return f'{timestamp} - <Non Conforming>'
 
     @property
     def payload(self):
