@@ -16,16 +16,16 @@ class ListenerLog(models.Model):
         return f'{self.webhook_name} ({self.webhook_id}) {timestamp} | {self.id}'
 
     @property
-    def json(self):
+    def payload(self):
         try:
-            data = json.loads(self.data)
+            return json.loads(self.data)
         except Exception:
-            data = {}
+            return {}
 
     @property
     def webhook_id(self):
-        return self.json.get('webhookId')
+        return self.payload.get('webhookId')
 
     @property
     def webhook_name(self):
-        return self.json.get('webhookName')
+        return self.payload.get('webhookName')
